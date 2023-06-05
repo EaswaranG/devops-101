@@ -21,14 +21,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # for slow laptops
     config.vm.boot_timeout = 600
 
-    # Sync Folder config
+    # Sync Folder config - Shared Folder, create the test-folder in your local and point here
     # config.vm.synced_folder "./test-folder", "/home/vagrant/myFolder", owner: "vagrant", group: "vagrant"
 
     # Creating a box_owner file to post the report to slack
     # config.vm.provision "shell", privileged: false, inline: "echo "+`whoami`.chomp+"@"+`hostname`.chomp+" > /home/vagrant/box_owner"
 
-    # Executing a shell script
-    # config.vm.provision "shell", privileged: true, path: "script.sh"
+    # Executing a shell script (Init script)
+    config.vm.provision "shell", privileged: true, path: "script.sh"
 
     # VM Provision config
     # config.vm.provision "file", source: "./test-folder", destination: "/home/vagrant/test-folder"
