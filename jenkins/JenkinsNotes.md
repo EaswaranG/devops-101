@@ -38,3 +38,10 @@ Select the recommended plugins and install them. In the getting started page, co
 6) Jenkins is Ready !
 
 Configure the URI and click finish! Now you can start using Jenkins.
+
+Note : 
+- If you are running in EC2 instance, make sure to allow port 8080 in security groups.
+- If your ubuntu firewall is blocking the request, enter the below command to enable the port.
+`sudo ufw allow 8080`
+`sudo ufw enable`
+`sudo ufw status`
