@@ -31,8 +31,9 @@ Download docker and install.
 
  - To view the information of the docker installed, execute `docker info`
  - To list the images installed, execute `docker images`
- - To build the docker image, executre `docker build`
- - To create a tag to the docker image, executre `docker tag`
- - To run the docker image, execute `docker run`
- - To push the docker image to hub, execute `docker push username/appName:tagname`
- - To pull the docker image to hub, execute `docker pull uesrname/appName:tagname`
+ - To build the docker image, executre `docker build -t appName:tagName .` Example: `docker build -t hello-python-app:latest .`
+ - To create a tag to the docker image, executre `docker tag appName userName/folderName:tagName` Example: `docker tag hello-python-app easwarang/hello-python:latest`
+ - To run the docker image, execute `docker run appName` Example: `docker run hello-python-app`
+ - To login to the docker hub `docker login`
+ - To push the docker image to hub, execute `docker push username/folderName:tagname` Example: `docker push easwarang/hello-python:latest`
+ - To pull the docker image to hub, execute `docker pull uesrname/appName:tagname` Example: `docker pull easwarang/hello-python:latest`
