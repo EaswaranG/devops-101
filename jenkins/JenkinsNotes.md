@@ -45,3 +45,33 @@ Note :
 `sudo ufw allow 8080`
 `sudo ufw enable`
 `sudo ufw status`
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## First Jenkins Job
+
+- Open Jenkins console and create a free-style project
+- In SCM, select GIT and give your clone URL
+- If the repo is public, creds are not required
+- This will clone the master/main branch into your workspace (/var/lib/jenkins/workspace/test-job)
+- In Build Steps, create a "Execute Shell" step and add shell script
+`echo "Hello from my shell script"`
+`mvn clean install`
+
+## For Private Repo
+- You need SSH Key, generate the key and add to repo
+- Have to be in jenkins user, enter the command to switch user `sudo su` `sudo - jenkins`
+- ssh-keygen -t ed25519 -C "email-add"
+- Go to the repo -> Settings -> Deploy Key, and add your public key
+- Now Jenkins has to talk with GitHub using private key
+- Navigate to Dashboard -> Manage Jenkins -> Credentials -> System -> Global Creds -> Add Creds -> Select "SSH Username with private key" and add the private key here.
+- Add known host (/.ssh)
+- command: ssh-keyscan github.com >> ~/.ssh/known_hosts
+- Configure the project and run the job !
+
+## Jenkins Continuous Deployment
+- Create a webhook in repo with Payload URL as Job URL
+- http://<publicIP>:8080/job/PrivateRepoJob/
+- Select the push events and create a secret
+- Git will push an trigger to the Jenkins job, there is no authentication as this is public URL
+- BEWARE : Create secrets and assert that secret in Jenkins when a build is triggered
