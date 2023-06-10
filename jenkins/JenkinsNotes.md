@@ -9,7 +9,7 @@ Follow the below steps to install Jenkins in the Linux machine.
 1) Install Java
 
 `sudo apt-get update`
-`sudo apt-get openjdk-11-jre`
+`sudo apt install openjdk-11-jre`
 
 2) Install Jenkins LTS 
 
