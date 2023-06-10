@@ -31,11 +31,18 @@ Note: It is Active and running.
 Open the console "localhost:8080" (replace the localhost with your VM IP), the console would be asking for admin password to unlock.
 Find the admin password in the location `/var/lib/jenkins/secrets/initialAdminPassword` and use the password to unlock.
 
-5) Install Plugins
+5) Switch to Jenkins user in VM
+
+In your Virtual Machine, you would need to switch to the 'jenkins' user, the default user will not have permissions for many operations such as adding ssh keys etc. 
+
+`sudo su`
+`sudo - jenkins`
+
+6) Install Plugins
 
 Select the recommended plugins and install them. In the getting started page, configure the username, password and email.
 
-6) Jenkins is Ready !
+7) Jenkins is Ready !
 
 Configure the URI and click finish! Now you can start using Jenkins.
 
