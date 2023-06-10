@@ -19,3 +19,4 @@
 - If we create NAT, it will create a VM and it takes time and also incurs cost.
 
 - Public IP Address is free unless we use it. You will be charged if you don't use the IP.
+<img width="1203" alt="image" src="https://github.com/EaswaranG/devops-101/assets/75293695/f918f938-ee54-4b7d-80ff-fc6787b33dd6">
