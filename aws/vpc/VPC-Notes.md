@@ -13,6 +13,9 @@
 - Define S3 endpoint in the routing table, so that the request won't go out of the Gateway and we can save cost.
 - NAT will cost per every hour and also for every request going out of the subnet.
 
+![PXL_20230609_011006413 (1)](https://github.com/EaswaranG/devops-101/assets/75293695/c6b6a9bf-eda3-4404-94d4-6a36f1f36c23)
+
+
 ## Creating a VPC
 - Login to AWS -> VPC -> New VPC -> Configure your VPC based on your requirement.
 - When we create a VPC, a subnet, routing table, IGW are created.
