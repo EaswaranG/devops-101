@@ -8,8 +8,20 @@ My Docker base image was created in ARM architecture, so make sure to use approp
 ## Docker 
 
 Docker Hub is a container image repository, we could publish our images to the docker hub.
+Docker is written in Go Language. 
 URL : https://hub.docker.com/
 My Image : https://hub.docker.com/repository/docker/easwarang/hello-python/general
+
+## Docker Terms
+
+namespace -> Isolates containers
+cgroup -> Resource management (allocates resources to container)
+union -> File system access to the container
+docker daemon -> The actual docker engine (service) which runs the container
+docker image -> The snapshot of the build
+docker container -> Process running the docker iamge
+docker file -> Set of instructions required to build docker image
+Docker Hub -> Docker repository
 
 ## Set-up
 
@@ -37,3 +49,10 @@ Download docker and install.
  - To login to the docker hub `docker login`
  - To push the docker image to hub, execute `docker push username/folderName:tagname` Example: `docker push easwarang/hello-python:latest`
  - To pull the docker image to hub, execute `docker pull uesrname/appName:tagname` Example: `docker pull easwarang/hello-python:latest`
+ - `docker ps` -> lists running docker processes
+ - `docker ps -a` -> lists all containers in any state
+ - `docker container ls` -> returns running container (add -a to list in all state)
+ - `docker rmi -f nginx` -> Removes an image from local
+ - `docker run -d <imageName>` -> Runs the container in detached mode (background)
+ - To do port forwarding to the container, we need to bind the VM port with the container port (eg: when i hit ip:8080, the request should be redirected to the port 80 of the container) `docker run -d -p 8080:80 <imageName>` -> Binds port 8080 of the local machine (or VM) with the port 80 of the 
+ - 
