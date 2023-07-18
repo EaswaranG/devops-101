@@ -12,6 +12,9 @@ Docker is written in Go Language.
 URL : https://hub.docker.com/
 My Image : https://hub.docker.com/repository/docker/easwarang/hello-python/general
 
+## Docker Quick Notes
+- Changes inside the image are not persistant.
+
 ## Docker Terms
 
 namespace -> Isolates containers
@@ -54,5 +57,20 @@ Download docker and install.
  - `docker container ls` -> returns running container (add -a to list in all state)
  - `docker rmi -f nginx` -> Removes an image from local
  - `docker run -d <imageName>` -> Runs the container in detached mode (background)
- - To do port forwarding to the container, we need to bind the VM port with the container port (eg: when i hit ip:8080, the request should be redirected to the port 80 of the container) `docker run -d -p 8080:80 <imageName>` -> Binds port 8080 of the local machine (or VM) with the port 80 of the 
- - 
+ - `docker stop <containerId>` -> Stops a running container
+ - To do port forwarding to the container, we need to bind the VM port with the container port (eg: when i hit ip:8080, the request should be redirected to the port 80 of the container) `docker run -d -p 8080:80 <imageName>` -> Binds port 8080 of the local machine (or VM) with the port 80 of the docker image.
+ - To copy a file inside a container, `sudo docker cp <file name> <container ID>:<path>` 
+  Example: `sudo docker cp index.html 152bf0e4eede:/usr/share/nginx/html/`
+ - Create a docker image from a running container, create a new image with tag. `sudo docker commit <containerID> <newContainerName>:<tag>`
+ - SSH into container using Docker CLI -> `sudo docker exec -it <containerID> /bin/bash` (use sh for shell access)
+
+
+ ## Creating Dockerfile
+ 
+ - The docker file contains all the commands to run the docker image.
+ - The docker file name should be strictly as "Dockerfile", it is case sensitive and no extension. If the file name is changed, you need to specify while building. (-f dockerFileName)
+ - Create a Dockerfile and insert your commands inside, example: 
+ 'FROM nginx
+ COPY index.html /usr/share/nginx/html'
+ - Build the docker image `sudo docker build -t <imageName>:<tag> .`
+ - Run the docker
