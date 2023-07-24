@@ -14,6 +14,7 @@ My Image : https://hub.docker.com/repository/docker/easwarang/hello-python/gener
 
 ## Docker Quick Notes
 - Changes inside the image are not persistant.
+- To do port forwarding to the container, we need to bind the VM port with the container port (eg: when i hit ip:8080, the request should be redirected to the port 80 of the container) `docker run -d -p 8080:80 <imageName>` -> Binds port 8080 of the local machine (or VM) with the port 80 of the docker.
 
 ## Docker Terms
 
@@ -74,4 +75,3 @@ Download docker and install.
  COPY index.html /usr/share/nginx/html'
  - Build the docker image `sudo docker build -t <imageName>:<tag> .`
  - Run the docker
-
