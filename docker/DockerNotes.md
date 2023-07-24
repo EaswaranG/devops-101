@@ -74,3 +74,4 @@ Download docker and install.
  COPY index.html /usr/share/nginx/html'
  - Build the docker image `sudo docker build -t <imageName>:<tag> .`
  - Run the docker
+
