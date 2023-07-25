@@ -15,6 +15,22 @@
         - Load balancing, 
         - Storage Orchestration, 
         - Automated rollouts and rollbacks, 
-        - automatic bin packing, 
+        - automatic bin packing (allocating jobs to servers)
         - self-healing, 
         - secrets and configuration management.
+ - Master Node:
+    - etcd database - All config management are stored in this.
+    - API Server - talks with other nodes
+    - schedular - does bin packing. via API server, connects to kulect and looks for mem to allocate the job and maintains the state.
+    - controller - controlls replicas
+    - 
+ - Worker Node:
+    - Kublect - An agents, Creates container in the worker node.
+    - Container - The running instance of an docker image.
+ - Install Kubectl in customer machine and use the CLI to connect to the master node.
+
+## K8s Key components
+
+- Nodes (Master Node and Worker Node)
+- Clusters
+- Pods
