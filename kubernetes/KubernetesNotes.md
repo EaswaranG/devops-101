@@ -18,4 +18,3 @@
         - automatic bin packing, 
         - self-healing, 
         - secrets and configuration management.
- - 
