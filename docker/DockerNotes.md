@@ -46,8 +46,8 @@ Download docker and install.
 
  - To view the information of the docker installed, execute `docker info`
  - To list the images installed, execute `docker images`
- - To build the docker image, executre `docker build -t appName:tagName .` Example: `docker build -t hello-python-app:latest .`
- - To create a tag to the docker image, executre `docker tag appName userName/folderName:tagName` Example: `docker tag hello-python-app easwarang/hello-python:latest`
+ - To build the docker image, execute `docker build -t appName:tagName .` Example: `docker build -t hello-python-app:latest .`
+ - To create a tag to the docker image, execute `docker tag appName userName/folderName:tagName` Example: `docker tag hello-python-app easwarang/hello-python:latest`
  - To run the docker image, execute `docker run appName` Example: `docker run hello-python-app`
  - To login to the docker hub `docker login`
  - To push the docker image to hub, execute `docker push username/folderName:tagname` Example: `docker push easwarang/hello-python:latest`
@@ -57,12 +57,15 @@ Download docker and install.
  - `docker container ls` -> returns running container (add -a to list in all state)
  - `docker rmi -f nginx` -> Removes an image from local
  - `docker run -d <imageName>` -> Runs the container in detached mode (background)
- - `docker stop <containerId>` -> Stops a running container
+ - `docker run -d -p 8080:80 --name my-webserver nginx` -> Runs in detached moded in port 8080 and with name 'my-webserver'
+ - `docker stop <containerId>` -> Stops a running 
+ - `docker system prune -a` -> Purges all Unused or Dangling Images, Containers, Volumes, and Networks
  - To do port forwarding to the container, we need to bind the VM port with the container port (eg: when i hit ip:8080, the request should be redirected to the port 80 of the container) `docker run -d -p 8080:80 <imageName>` -> Binds port 8080 of the local machine (or VM) with the port 80 of the docker image.
  - To copy a file inside a container, `sudo docker cp <file name> <container ID>:<path>` 
   Example: `sudo docker cp index.html 152bf0e4eede:/usr/share/nginx/html/`
  - Create a docker image from a running container, create a new image with tag. `sudo docker commit <containerID> <newContainerName>:<tag>`
  - SSH into container using Docker CLI -> `sudo docker exec -it <containerID> /bin/bash` (use sh for shell access)
+ - `docker logs -f <containerId>` -> Prints the container logs, '-f' will print the logs continously. 
 
 
  ## Creating Dockerfile
