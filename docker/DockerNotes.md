@@ -26,6 +26,9 @@ docker image -> The snapshot of the build
 docker container -> Process running the docker iamge
 docker file -> Set of instructions required to build docker image
 Docker Hub -> Docker repository
+Docker Compose -> Tool to create multiple containers from a yaml file
+Docker Swarm -> Docker's native clustering and orchestration solution
+Kubernetes -> An Open-Source and popular orchestration tool
 
 ## Set-up
 
