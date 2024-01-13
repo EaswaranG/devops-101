@@ -31,6 +31,8 @@
 
 ## K8s Key components
 
-- Nodes (Master Node and Worker Node)
-- Clusters
+- Cluster
+- Node
 - Pods
+- Container
+- An application will be packed as Docker image, and the DockerEngine (dockerd) will run the docker image as Docker Container. In K8s, the Container is running inside a pod, one to more pods are grouped inside a node and one or more nodes are grouped as a cluster.
