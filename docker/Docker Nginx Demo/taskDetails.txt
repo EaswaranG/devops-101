@@ -1,0 +1,23 @@
+Your development team has developed a website and code is updated to GitHub repository https://github.com/cloudacademy/static-website-example
+
+You, as a DevOps engineer, will containerize the website. You should use nginx as the webserver inside the container.
+
+Part-1: Create a container image to deploy your website as a container. You may directly use nginx image as base image or use a base image such as ubuntu/debian
+
+The root/document directory of nginx (where nginx read website/frontend files such as html, css, js, etc.):
+
+/usr/share/nginx/html/    -> if you nginx as base image
+
+/var/www/html/               -> if install nginx on ubuntu/debian
+
+Part-2: Configure nginx of your container to listen on port 8080 and recreate the image and container
+
+The config file of nginx (that has nginx port configuration):
+
+/etc/nginx/conf.d/default.conf           -> if base image is nginx
+
+/etc/nginx/sites-availables/default     -> if you install nginx on ubuntu/debian
+
+
+
+Note: I would suggest to make sure those directories are correct by creating a basic  container and ssh (getting shell access) into the container using `docker exec -it <container-id> bash` command

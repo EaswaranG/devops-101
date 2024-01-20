@@ -62,9 +62,11 @@ Download docker and install.
  - `docker rmi -f nginx` -> Removes an image from local
  - `docker run -d <imageName>` -> Runs the container in detached mode (background)
  - `docker run -d -p 8080:80 --name my-webserver nginx` -> Runs in detached moded in port 8080 and with name 'my-webserver'
- - `docker stop <containerId>` -> Stops a running 
- - `docker system prune -a` -> Purges all Unused or Dangling Images, Containers, Volumes, and Networks
+ - `docker run --rm -d -p 8080:80 --name my-webserver nginx` -> Use --rm to automatically remove the container once stopped
  - `docker stop <containerId>` -> Stops a running container
+ - `docker start <containerId>` -> Starts a exited container
+ - `docker system prune -a` -> Purges all Unused or Dangling Images, Containers, Volumes, and Networks
+
  - To do port forwarding to the container, we need to bind the VM port with the container port (eg: when i hit ip:8080, the request should be redirected to the port 80 of the container) `docker run -d -p 8080:80 <imageName>` -> Binds port 8080 of the local machine (or VM) with the port 80 of the docker image.
  - To copy a file inside a container, `sudo docker cp <file name> <container ID>:<path>` 
   Example: `sudo docker cp index.html 152bf0e4eede:/usr/share/nginx/html/`
