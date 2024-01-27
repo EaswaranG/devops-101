@@ -1,6 +1,8 @@
 # Getting started with docker
 ## Author Easwaran Govindarajan
 
+Docker is a containerization tool. A container is an isolated environment, packaging application data and their dependencies.
+
 In this example, I am creating a simple docker image and publishing to my docker hub and we will pull the image to a AWS EC2 instance and run the container.
 
 My Docker base image was created in ARM architecture, so make sure to use appropriate VM.
@@ -64,7 +66,9 @@ Download docker and install.
  - `docker run -d -p 8080:80 --name my-webserver nginx` -> Runs in detached moded in port 8080 and with name 'my-webserver'
  - `docker run --rm -d -p 8080:80 --name my-webserver nginx` -> Use --rm to automatically remove the container once stopped
  - `docker stop <containerId>` -> Stops a running container
- - `docker start <containerId>` -> Starts a exited container
+ - `docker start <containerId>` -> Starts a exited 
+ - `sudo docker build -t <imageName>:<tag> .` -> Builds a docker image from docker file in the current location (.)
+ - `docker build -t db . -f Dockerfile_db` -> When a docker file name is different, use -f to specify the filename
  - `docker system prune -a` -> Purges all Unused or Dangling Images, Containers, Volumes, and Networks
 
  - To do port forwarding to the container, we need to bind the VM port with the container port (eg: when i hit ip:8080, the request should be redirected to the port 80 of the container) `docker run -d -p 8080:80 <imageName>` -> Binds port 8080 of the local machine (or VM) with the port 80 of the docker image.
@@ -73,6 +77,8 @@ Download docker and install.
  - Create a docker image from a running container, create a new image with tag. `sudo docker commit <containerID> <newContainerName>:<tag>`
  - SSH into container using Docker CLI -> `sudo docker exec -it <containerID> /bin/bash` (use sh for shell access)
  - `docker logs -f <containerId>` -> Prints the container logs, '-f' will print the logs continously. 
+ - `docker run -d -p 8080:80 --name my-webserver -e BACKEND_NAME=mybackend -e FRONEND_NAME=frontend nginx` -> -e refers to environment variable. This way we can pass environment variables inline.
+ - `docker run -d -p 8080:80 --name my-webserver --env-file FILENAME nginx` -> --env-file variable is used to pass a key-value pair file as environment file.
 
 
  ## Creating Dockerfile
@@ -84,3 +90,23 @@ Download docker and install.
  COPY index.html /usr/share/nginx/html'
  - Build the docker image `sudo docker build -t <imageName>:<tag> .`
  - Run the docker
+
+# Notes
+ - The docker comes with docker CLI, docker daemon (docker d), container d and run c
+ - Docker CLI sends a REST request to docker d from command line
+ - Docker Deamon is responsible for docker images
+ - Container d is responsible for managing life-cycle of docker containers
+ - run c is responsible only for creating a container and it dies.
+
+# Docker Networks
+ - Docker have 3 types of network by default. Bridge, Host and Null.
+ - Every container created by default will join bridge network type and containers can communicate with each other using its IP address only. 
+ - `docker network create wp-net` -> creates a new network with name wp-net and by default as Bridge network.
+ - `docker run -d -p 8081:80 --network wp-net wordpress` -> runs container in the network.
+
+# Docker Compose
+- Tool to define and create multiple continer applications
+- Docker compose is a yaml file (compose.yaml)
+- `docker compose -f wp-compose.yaml up -d` -> Runs the docker containers from docker compose file
+- Docker container data is not persistant until we attach a volume to the db container.
+- `/var/lib/docker/volumes` -> location of the docker volumnes
