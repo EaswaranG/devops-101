@@ -4,8 +4,12 @@
  ## Container Orchestration Intro
  
  - Kubernetes is an container orchestartion tool.
- - When a container is down, the orchestartor can start the container again.
- - Containers can be scaled.
+
+ Benefits:
+ - Efficient Orchestration tool for large scale application.
+ - Auto Healing: When a container is down, the orchestartor can start the container again.
+ - Auto Scaling: Containers can be scaled.
+
  - Ex: RedHat Openshift is an Linux container orchestrator
  - Docker has Docker Engine's Swarm mode.
  - Kubernetes (K8s) is created by google and declared as open-source in 2014.
@@ -33,6 +37,6 @@
 
 - Cluster
 - Node
-- Pods
+- Pods: Logical group of containers, a smallest unit of compute.
 - Container
 - An application will be packed as Docker image, and the DockerEngine (dockerd) will run the docker image as Docker Container. In K8s, the Container is running inside a pod, one to more pods are grouped inside a node and one or more nodes are grouped as a cluster.
