@@ -35,6 +35,8 @@
 
 ## K8s Key components
 
+![Azure K8](https://github.com/EaswaranG/devops-101/assets/75293695/47a38557-a825-46e8-b97f-5b8d76521076)
+
 - Cluster
 - Node
 - Pods: Logical group of containers, a smallest unit of compute.
