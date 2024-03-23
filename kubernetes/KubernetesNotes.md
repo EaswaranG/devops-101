@@ -44,10 +44,11 @@
 - An application will be packed as a Docker image, and the DockerEngine (dockerd) will run the Docker image as Docker Container. In K8s, the Container runs inside a pod, one or more pods are grouped inside a node, and one or more nodes are grouped as a cluster.
 
 ## Kubernetes Resources
+
 >[!TIP]
 >The Kubernetes Manifest file is used to specify the Kubernetes object state. This is usually a deployment.yaml and service.yaml file.
 
-![k8s-resources](https://github.com/EaswaranG/devops-101/assets/75293695/fa6f974d-5bf7-4da6-859b-d2424f8f8a5c)
+![k8s-resources](https://github.com/EaswaranG/devops-101/assets/75293695/dc6c9213-ae1d-49c3-9dd3-69f59b304628)
 
 ## Example Manifest File
 
