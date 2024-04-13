@@ -39,6 +39,6 @@
 
 - Cluster
 - Node
-- Pods: Logical group of containers, a smallest unit of compute.
+- Pods: Logical group of containers, a smallest deployable unit of compute. Each pod gets a IP address.
 - Container
 - An application will be packed as Docker image, and the DockerEngine (dockerd) will run the docker image as Docker Container. In K8s, the Container is running inside a pod, one to more pods are grouped inside a node and one or more nodes are grouped as a cluster.
