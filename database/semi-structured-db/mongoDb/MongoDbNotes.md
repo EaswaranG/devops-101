@@ -19,3 +19,24 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
 - Collections -> `Group of related documents is Collections, it can be of any type (flexible schema model)`
 - Database -> `A database is a container of the mongoDB collections`
 
+# Example of an MongoDB Document
+```json
+{
+  "_id": ObjectId("5a934e000102030405000000"),
+  "name": "John Doe",
+  "age": 30,
+  "email": "johndoe@example.com",
+  "address": {
+    "street": "123 Main St",
+    "city": "Anytown",
+    "state": "CA",
+    "zipcode": "12345"
+  },
+  "interests": ["hiking", "reading", "traveling"],
+  "registered": true,
+  "registration_date": ISODate("2024-07-20T12:00:00Z")
+}
+```
+
+## MongoDB Notes
+- MongoDB is a Document based database system which is more scalable, reliable on most importantly the data is stored in JSON format which makes data analytics on top of the document is simple.
