@@ -60,7 +60,7 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
                     "director": "Maniratnam",
                     "runtime": 190
                     }
-                    ```
+                ```
     -    `One to Many` -> One data entity connected to many data entity in another set in a single document.
             - Eg: One movie can be directed by many directors
         
@@ -80,7 +80,8 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
                     ],
                     "runtime": 160
                     }
-                    ```
+                ```
+
     -    `Many to Many` -> Many data entity connected to many data entity in any another set in a single document.
             - Eg: Same like one to many, but both the documents can have nested cross references
 
@@ -100,9 +101,9 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
                     ],
                     "runtime": 160
                     }
-                    ```
+                ```
 
-                    ```json
+                ```json
                     // Director Document
                     {
                     "_id": ObjectId("62hx7e000102030405000111"),
@@ -115,14 +116,14 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
                         }
                     ]
                     }
-                    ```
+                ```
 
 - There are two primary way of moding a This can be achieved using 
                 - 1) `Embedding` -> We take related data and insert into the document. (Eg: Same as OnetoMany example above)
                 - 2) `Referencing` -> Refer to documents in another collection in our document.
                     - Referencing Eg: Filming locations are in locations collections and it is being referred using Object ID.
     
-                    ```json
+                ```json
                         {
                         "_id": ObjectId("5a934e000102030405000000"),
                         "title": "Navarasa",
@@ -138,4 +139,4 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
                             ObjectId("4a934e000102030405000002")
                         ]
                         }
-                        ```
+                ```
