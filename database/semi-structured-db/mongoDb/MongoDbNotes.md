@@ -123,20 +123,21 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
                 - 2) `Referencing` -> Refer to documents in another collection in our document.
                     - Referencing Eg: Filming locations are in locations collections and it is being referred using Object ID.
     
-                ```json
-                        {
-                        "_id": ObjectId("5a934e000102030405000000"),
-                        "title": "Navarasa",
-                        "chapters": [
-                            {"director" : "Gautham Vasudev Menon", "title" : "Guitar Kambi Mele Nindu"},
-                            {"director" : "Karthik Subbaraj", "title" : "peace"},
-                            {"director" : "Arvind Swami", "title" : "Rowthiram"}
-                            {"director" : "Bejoy Nambiar", "title" : "Edhiri"}
-                        ],
-                        "runtime": 160,
-                        "filming_locations": [
-                            ObjectId("4a934e000102030405000001"),
-                            ObjectId("4a934e000102030405000002")
-                        ]
-                        }
-                ```
+                    ```json
+                            {
+                            "_id": ObjectId("5a934e000102030405000000"),
+                            "title": "Navarasa",
+                            "chapters": [
+                                {"director" : "Gautham Vasudev Menon", "title" : "Guitar Kambi Mele Nindu"},
+                                {"director" : "Karthik Subbaraj", "title" : "peace"},
+                                {"director" : "Arvind Swami", "title" : "Rowthiram"}
+                                {"director" : "Bejoy Nambiar", "title" : "Edhiri"}
+                            ],
+                            "runtime": 160,
+                            "filming_locations": [
+                                ObjectId("4a934e000102030405000001"),
+                                ObjectId("4a934e000102030405000002")
+                            ]
+                            }
+                    ```
+
