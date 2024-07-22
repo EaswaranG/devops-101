@@ -45,3 +45,97 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
 - `ObjectID` is an special datatype in BSON acts as an primary key. This ID will be automatically generated if your document don't have an ID (_id)field.
 - Documents may contain different field and different data type (Flexible Schema), however do the schema design before implementation. -> `Polymorphic Data`
 - We can also set `Schema Validation` rules to optionally validate the data type before saving the document.
+- A fields in the document can be in any order and can differ from one document to another in same collection.
+
+## Data Modeling
+- Data that are accessed together should be stored together.
+- Relationships: 
+    -    `One to One` -> One data entity connected to one data entity only in another set in a single document.
+            - Eg: One movie have one director
+        
+                ```json
+                    {
+                    "_id": ObjectId("5a934e000102030405000000"),
+                    "movie": "Ponniyin Selvan",
+                    "director": "Maniratnam",
+                    "runtime": 190
+                    }
+                    ```
+    -    `One to Many` -> One data entity connected to many data entity in another set in a single document.
+            - Eg: One movie can be directed by many directors
+        
+                ```json
+                    // Movie Document
+                    {
+                    "_id": ObjectId("5a934e000102030405000000"),
+                    "title": "Navarasa",
+                    "chapters": [
+                        // Director Document
+                        { "_id": ObjectId("3a934e000102030405000011"), 
+                        "director": "Gautham Vasudev Menon",
+                        "title": "Guitar Kambi Mele Nindu"},
+                        {"_id": ObjectId("3a934e000102030405000012"), "director" : "Karthik Subbaraj", "title" : "peace"},
+                        {"_id": ObjectId("3a934e000102030405000013"), "director" : "Arvind Swami", "title" : "Rowthiram"}
+                        {"_id": ObjectId("3a934e000102030405000014"), "director" : "Bejoy Nambiar", "title" : "Edhiri"}
+                    ],
+                    "runtime": 160
+                    }
+                    ```
+    -    `Many to Many` -> Many data entity connected to many data entity in any another set in a single document.
+            - Eg: Same like one to many, but both the documents can have nested cross references
+
+                ```json
+                    // Movie Document
+                    {
+                    "_id": ObjectId("5a934e000102030405000000"),
+                    "title": "Navarasa",
+                    "chapters": [
+                        // Director Document
+                        { "_id": ObjectId("3a934e000102030405000011"), 
+                        "director": "Gautham Vasudev Menon",
+                        "title": "Guitar Kambi Mele Nindu"},
+                        {"_id": ObjectId("62hx7e000102030405000111"), "director" : "Karthik Subbaraj", "title" : "peace"},
+                        {"_id": ObjectId("3a934e000102030405000013"), "director" : "Arvind Swami", "title" : "Rowthiram"}
+                        {"_id": ObjectId("3a934e000102030405000014"), "director" : "Bejoy Nambiar", "title" : "Edhiri"}
+                    ],
+                    "runtime": 160
+                    }
+                    ```
+
+                    ```json
+                    // Director Document
+                    {
+                    "_id": ObjectId("62hx7e000102030405000111"),
+                    "director_name": "Karthik Subbaraj",
+                    "movies": [
+                        // Movie Document
+                        { "_id": ObjectId("5a934e000102030405000000"),
+                          "_id": ObjectId("5a934e000102030405000001"),
+                          "_id": ObjectId("5a934e000102030405000002"),
+                        }
+                    ]
+                    }
+                    ```
+
+- There are two primary way of moding a This can be achieved using 
+                - 1) `Embedding` -> We take related data and insert into the document. (Eg: Same as OnetoMany example above)
+                - 2) `Referencing` -> Refer to documents in another collection in our document.
+                    - Referencing Eg: Filming locations are in locations collections and it is being referred using Object ID.
+    
+                    ```json
+                        {
+                        "_id": ObjectId("5a934e000102030405000000"),
+                        "title": "Navarasa",
+                        "chapters": [
+                            {"director" : "Gautham Vasudev Menon", "title" : "Guitar Kambi Mele Nindu"},
+                            {"director" : "Karthik Subbaraj", "title" : "peace"},
+                            {"director" : "Arvind Swami", "title" : "Rowthiram"}
+                            {"director" : "Bejoy Nambiar", "title" : "Edhiri"}
+                        ],
+                        "runtime": 160,
+                        "filming_locations": [
+                            ObjectId("4a934e000102030405000001"),
+                            ObjectId("4a934e000102030405000002")
+                        ]
+                        }
+                        ```
