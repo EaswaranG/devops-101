@@ -141,3 +141,22 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
                             }
                         ```
 
+- Embedded documents (also know as Nested Documents) can cause significant issues.
+    - Embedded documents will make the document larger and slows down the application performance.
+    - Contiunously adding data without limit can create unbounded documents.
+    - Unbounded documents may exceed the `BSON document threshold of 16 MB`.
+- When we have to store related data seperate in a document or may be in different collection, we can use `_id` field and create a reference.
+- Using Referencing is called linking or `data normalization`.
+- Referencing provides smaller documents and avoids duplication of data.
+- However, referencing creates a overhead while querying from multuple documents costs extra resources and impacts read performance.
+
+| Embedding                                    | Referencing                                      |
+|----------------------------------------------|--------------------------------------------------|
+| Pro: Single query to retrieve data | Pro: No duplication of data        |
+| Pro: Single operation to update/delete data | Pro: Smaller document size, references stored instead |
+| Con: Data Duplication | Con: Need to join data from multiple documents |
+| Con: Large documents | Con: Updates can be more complex, multiple documents may need updating |
+
+- Utilize Schema design patterns, that are guidlelines that helps developers plan, organize and model data.
+- Some common schema anti-patterns such as massive arrays, massive number of collections, bloated documents, unncessary indexes, queries without indexes.
+- Use tools in MongoDB Atlas such as Data Explorer (Available in free tier) and Performance Advisor (Not available in free tier).
