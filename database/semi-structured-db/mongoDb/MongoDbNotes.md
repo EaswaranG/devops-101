@@ -160,3 +160,61 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
 - Utilize Schema design patterns, that are guidlelines that helps developers plan, organize and model data.
 - Some common schema anti-patterns such as massive arrays, massive number of collections, bloated documents, unncessary indexes, queries without indexes.
 - Use tools in MongoDB Atlas such as Data Explorer (Available in free tier) and Performance Advisor (Not available in free tier).
+
+## Connect to MongoDB Database
+
+- MongoDB can be connected to `Shell`, `MongoDB Compass` or any other `Applications`.
+- Two formats for connection string
+    - Standard Format: Connect to standlone clusters, replica sets or sharded clusters.
+    - DNS Seed List Format: Released in v3.6, provides a DNS server list to our connection string. Gives more flexibility of deployment and ability to change servers in rotation without reconfiguring clientes.
+- Connect to Atlas Cluster:
+    - Navigate to Atlast -> Database -> Find Connect button -> Choose from the list.
+    - Mention the driver name to get the connection string.
+    - In connectoion string, the `mongodb+srv://` where the mongodb refers to the database name and the `srv` is to set TLS to true for configuring DNS seed list.
+    - Followed by the username, password, cluster info and port details along with other options like retry timeout, TLS, SSL, read and write consents.
+
+- MongoDB Shell is an NodeJS REPL Environment, this gives access to JS Functions and expressions.
+
+## Insert Document into Collection
+
+- There are two ways to insert a document to a collection.
+    - insertOne() -> db.<collection>.insertOne() [ Eg: db.grades.insertOne()] //If the collection is not existing, the mongoDB will automatically create the collection
+            - Example: db.grades.insertOne(
+                {
+                    student_id: 500,
+                    scores: [
+                        {
+                            type: "quiz",
+                            score: 50
+                        },{
+                            type: "homework",
+                            score: 70
+                        }
+                    ]
+                }
+            )
+            Output:
+                ```json
+                {
+                    acknowledged: true.
+                    insertedId: ObjectId("34h124352B4144fn2fk23f5")
+                }
+                ```
+    - insertMany(): Expects an array of documents, db.<collection>.insertMany()
+        - Eg: db.grades.insertMany([
+            <document 1>,
+            <document 2>,
+            <document 3>
+        ])
+        Output:
+                ```json
+                {
+                    acknowledged: true.
+                    insertedIds: {
+                       '0' :  ObjectId("34h124352B4144fn2fk23f5"),
+                        '1' : ObjectId("34h124352B4144fn2fk23f5"),
+                       '2' : ObjectId("34h124352B4144fn2fk23f5")
+                    }
+                }
+                ```
+
