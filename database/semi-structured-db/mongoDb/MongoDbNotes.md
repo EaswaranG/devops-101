@@ -218,3 +218,23 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
                 }
                 ```
 
+## Finding Documents in a MongoDB Collection - Using find()
+
+- Use find() method to view all the documents in the collection.
+- db.<collection>.find()
+- To retrive a specific document we can either use `$eq` operator to find the field and value directly.
+- Eg: `db.zips.find({state: "AZ"})`
+- Or Using `$in` operator we can find the values in the list specified in the array.
+    - Eg: `db.zips.find({city: {
+            $in: ["PHEONIX", "CHICAGO"]
+         }
+        })
+
+## Finding Documents in a MongoDB Collection - using Comparator
+
+- `$gt` (greater than) -> Returns documents where the field contains value greater than the specified value [`db.sales.find({"items.price" : {$gt: 50}})`]
+- `$lt` (less than) -> `db.sales.find({"items.price" : {$lt: 50}})`
+- `lte` (less than or equal to) -> `db.sales.find({"items.price" : {$lte: 50}})`
+- `gte` (greater than or equal to) -> `db.sales.find({"items.price" : {$gte: 50}})`
+- Few more operators, check out documentation.
+- Syntax: `<field>: { <operator> : <value> }`
