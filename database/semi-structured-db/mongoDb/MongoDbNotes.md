@@ -238,3 +238,88 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
 - `gte` (greater than or equal to) -> `db.sales.find({"items.price" : {$gte: 50}})`
 - Few more operators, check out documentation.
 - Syntax: `<field>: { <operator> : <value> }`
+
+## Query on Array Elements in MongoDB
+
+- `$elemMatch` -> Matches a specific element criteria
+- `$eq` -> Use eq operator along with elemMatch to return only the array with this element exists.
+- Example:  
+    ```json
+    db.account.find({
+        products : {
+            $elemMatch : {$eq : "InvestmemtStocks"}
+        }
+    });
+    ```
+
+### Find a Document by Using the $elemMatch Operator
+Use the $elemMatch operator to find all documents that contain the specified subdocument. For example:
+
+db.sales.find({
+  items: {
+    $elemMatch: { name: "laptop", price: { $gt: 800 }, quantity: { $gte: 1 } },
+  },
+})
+
+## Logical Operators in MongoDB
+
+- `$and` -> Logical And operator  
+- `$or` -> Logical OR operator
+Expression:
+    db.<collection>.find({
+        $or : [
+            {"airline" : "Southwest Airlines"} ,{"stops" : {"$gte" : 1}}
+            {"airline" : "Delta Airlines"} ,{"stops" : {"$gte" : 2}}
+
+            ]
+    });
+    
+Example:
+    db.routes.find({
+        $and : [{"airline" : "Southwest Airlines"} ,{"stops" : {"$gte" : 1}}]
+    });
+
+### Find a Document by Using the $and Operator and $or operator together
+
+Use the $and operator to use multiple $or expressions in your query.
+```json
+db.routes.find({
+  $and: [
+    { $or: [{ dst_airport: "SEA" }, { src_airport: "SEA" }] },
+    { $or: [{ "airline.name": "American Airlines" }, { airplane: 320 }] },
+  ]
+})
+```
+
+
+## Connect MongoDB to Java App
+- Synchronus and Async drivers are available
+- Connect to Your Atlas Cluster
+
+1. Create a new file called Connection.java with the following code. This file uses your MongoDB connection string and the MongoClient to establish a connection with your Atlas cluster:
+```java
+package com.mongodb.quickstart;
+
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import org.bson.Document;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Connection {
+
+    public static void main(String[] args) {
+        String connectionString = System.getProperty("mongodb.uri");
+        try (MongoClient mongoClient = MongoClients.create(connectionString)) {
+            List<Document> databases = mongoClient.listDatabases().into(new ArrayList<>());
+            databases.forEach(db -> System.out.println(db.toJson()));
+        }
+    }
+}
+```
+
+2. In the project's root folder, run the following command to compile your Maven project and connect to your Atlas cluster: 
+
+mvn compile exec:java -Dexec.mainClass="com.mongodb.quickstart.Connection" -Dmongodb.uri="<connectionString>"mvn compile exec:java -Dexec.mainClass="com.mongodb.quickstart.Connection" -Dmongodb.uri="<connectionString>"
+
