@@ -1,4 +1,4 @@
-# Getting started with docker
+# Getting started with MongoDB
 ## Author Easwaran Govindarajan
 
 # MongoDB 
@@ -123,23 +123,23 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
                 - 2) `Referencing` -> Refer to documents in another collection in our document.
                     - Referencing Eg: Filming locations are in locations collections and it is being referred using Object ID.
     
-                        ```json
-                            {
-                            "_id": ObjectId("5a934e000102030405000000"),
-                            "title": "Navarasa",
-                            "chapters": [
-                                {"director" : "Gautham Vasudev Menon", "title" : "Guitar Kambi Mele Nindu"},
-                                {"director" : "Karthik Subbaraj", "title" : "peace"},
-                                {"director" : "Arvind Swami", "title" : "Rowthiram"}
-                                {"director" : "Bejoy Nambiar", "title" : "Edhiri"}
-                            ],
-                            "runtime": 160,
-                            "filming_locations": [
-                                ObjectId("4a934e000102030405000001"),
-                                ObjectId("4a934e000102030405000002")
-                            ]
-                            }
-                        ```
+    ```json
+    {
+        "_id": ObjectId("5a934e000102030405000000"),
+        "title": "Navarasa",
+        "chapters": [
+                {"director" : "Gautham Vasudev Menon", "title" : "Guitar Kambi Mele Nindu"},
+                {"director" : "Karthik Subbaraj", "title" : "peace"},
+                {"director" : "Arvind Swami", "title" : "Rowthiram"}
+                {"director" : "Bejoy Nambiar", "title" : "Edhiri"}
+            ],
+        "runtime": 160,
+        "filming_locations": [
+                ObjectId("4a934e000102030405000001"),
+                ObjectId("4a934e000102030405000002")
+            ]
+    }
+    ```
 
 - Embedded documents (also know as Nested Documents) can cause significant issues.
     - Embedded documents will make the document larger and slows down the application performance.
@@ -179,7 +179,9 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
 
 - There are two ways to insert a document to a collection.
     - insertOne() -> db.<collection>.insertOne() [ Eg: db.grades.insertOne()] //If the collection is not existing, the mongoDB will automatically create the collection
-            - Example: db.grades.insertOne(
+        - Example: 
+            ``` json
+            db.grades.insertOne(
                 {
                     student_id: 500,
                     scores: [
@@ -193,30 +195,34 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
                     ]
                 }
             )
+            ```
             Output:
-                ```json
+            ```json
                 {
                     acknowledged: true.
                     insertedId: ObjectId("34h124352B4144fn2fk23f5")
                 }
-                ```
+            ```
     - insertMany(): Expects an array of documents, db.<collection>.insertMany()
-        - Eg: db.grades.insertMany([
+        - Eg: 
+        ``` json
+        db.grades.insertMany([
             <document 1>,
             <document 2>,
             <document 3>
         ])
+        ```
         Output:
-                ```json
-                {
-                    acknowledged: true.
-                    insertedIds: {
-                       '0' :  ObjectId("34h124352B4144fn2fk23f5"),
-                        '1' : ObjectId("34h124352B4144fn2fk23f5"),
-                       '2' : ObjectId("34h124352B4144fn2fk23f5")
-                    }
+        ```json
+        {
+            acknowledged: true.
+            insertedIds: {
+                '0' :  ObjectId("34h124352B4144fn2fk23f5"),
+                '1' : ObjectId("34h124352B4144fn2fk23f5"),
+                '2' : ObjectId("34h124352B4144fn2fk23f5")
                 }
-                ```
+        }
+        ```
 
 ## Finding Documents in a MongoDB Collection - Using find()
 
@@ -225,10 +231,13 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
 - To retrive a specific document we can either use `$eq` operator to find the field and value directly.
 - Eg: `db.zips.find({state: "AZ"})`
 - Or Using `$in` operator we can find the values in the list specified in the array.
-    - Eg: `db.zips.find({city: {
+    - Eg: 
+    ``` json
+    db.zips.find({city: {
             $in: ["PHEONIX", "CHICAGO"]
          }
-        })
+    })
+    ```
 
 ## Finding Documents in a MongoDB Collection - using Comparator
 
@@ -253,19 +262,22 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
     ```
 
 ### Find a Document by Using the $elemMatch Operator
-Use the $elemMatch operator to find all documents that contain the specified subdocument. For example:
-
+Use the `$elemMatch` operator to find all documents that contain the specified subdocument. For example:
+```json
 db.sales.find({
   items: {
     $elemMatch: { name: "laptop", price: { $gt: 800 }, quantity: { $gte: 1 } },
   },
 })
+```
 
 ## Logical Operators in MongoDB
 
 - `$and` -> Logical And operator  
 - `$or` -> Logical OR operator
+
 Expression:
+```json
     db.<collection>.find({
         $or : [
             {"airline" : "Southwest Airlines"} ,{"stops" : {"$gte" : 1}}
@@ -273,11 +285,14 @@ Expression:
 
             ]
     });
+```
     
 Example:
+```json
     db.routes.find({
         $and : [{"airline" : "Southwest Airlines"} ,{"stops" : {"$gte" : 1}}]
     });
+```
 
 ### Find a Document by Using the $and Operator and $or operator together
 
@@ -321,5 +336,8 @@ public class Connection {
 
 2. In the project's root folder, run the following command to compile your Maven project and connect to your Atlas cluster: 
 
+```java
 mvn compile exec:java -Dexec.mainClass="com.mongodb.quickstart.Connection" -Dmongodb.uri="<connectionString>"mvn compile exec:java -Dexec.mainClass="com.mongodb.quickstart.Connection" -Dmongodb.uri="<connectionString>"
+```
+
 
