@@ -175,7 +175,7 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
 
 - MongoDB Shell is an NodeJS REPL Environment, this gives access to JS Functions and expressions.
 
-## Insert Document into Collection
+## CRUD: Insert Document into Collection
 
 - There are two ways to insert a document to a collection.
     - insertOne() -> db.<collection>.insertOne() [ Eg: db.grades.insertOne()] //If the collection is not existing, the mongoDB will automatically create the collection
@@ -224,7 +224,7 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
         }
         ```
 
-## Finding Documents in a MongoDB Collection - Using find()
+## CRUD: Finding Documents in a MongoDB Collection - Using find()
 
 - Use find() method to view all the documents in the collection.
 - db.<collection>.find()
@@ -239,7 +239,7 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
     })
     ```
 
-## Finding Documents in a MongoDB Collection - using Comparator
+## CRUD: Finding Documents in a MongoDB Collection - using Comparator
 
 - `$gt` (greater than) -> Returns documents where the field contains value greater than the specified value [`db.sales.find({"items.price" : {$gt: 50}})`]
 - `$lt` (less than) -> `db.sales.find({"items.price" : {$lt: 50}})`
@@ -261,7 +261,7 @@ Atlas URL : `https://cloud.mongodb.com/v2/669bee9d2b57fa6efcfe36f0#/overview`
     });
     ```
 
-### Find a Document by Using the $elemMatch Operator
+### CRUD: Find a Document by Using the $elemMatch Operator
 Use the `$elemMatch` operator to find all documents that contain the specified subdocument. For example:
 ```json
 db.sales.find({
@@ -294,7 +294,7 @@ Example:
     });
 ```
 
-### Find a Document by Using the $and Operator and $or operator together
+### CRUD: Find a Document by Using the $and Operator and $or operator together
 
 Use the $and operator to use multiple $or expressions in your query.
 ```json
@@ -305,6 +305,39 @@ db.routes.find({
   ]
 })
 ```
+
+## CRUD: Replace and Delete Documents
+
+- To replace a document in a collection we have methods in mongoDB
+
+- `replaceOne()` method is used to replace one document in a collection.
+    - Syntax: `db.<collection>.replaceOne(<filter>,<replacement>, {options})`
+    - Options argument is optional.
+- Replace an updated document is a use case of this replaceOne method.
+``` json 
+    db.<collections>.replaceOne({_id: ObjectId("iuwehn8c923cr7wehf2jd9242)},
+    {
+        //excluding id field
+        title: "Book Title",
+        ISBN: "214-214",
+    })
+```
+- The output will have `matchedCount` and `modifiedCount` fields to verify how many fields are updated.
+- You can also use findOne() method to verify the updated document.
+- To replace documents in MongoDB, we use the replaceOne() method. The replaceOne() method takes the following parameters:
+
+    `filter`: A query that matches the document to replace.
+    `replacement`: The new document to replace the old one with.
+    `options`: An object that specifies options for the update.
+
+## CRUD: Updating MongoDB Documents by Using updateOne()
+
+- `updateOne()` method uses `$set` and `$push` operator.
+- `upsert` is an option.
+- Syntax: `db.<collection>.updateOne(<filter>,<update>, {options})`
+    - filter is selection criteria
+- $set operator adds new values to a document.
+
 
 
 ## Connect MongoDB to Java App
