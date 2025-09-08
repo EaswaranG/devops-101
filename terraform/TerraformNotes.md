@@ -122,4 +122,24 @@ Hashicorp has a provider to generate random bytes, id, int, password, pet name, 
 
 ## Splat Expressions
 Documentation: `https://developer.hashicorp.com/terraform/language/expressions/splat`
-A splat expression provides a more concise way to express a common operation that could otherwise be performed with a for expression.
+A splat expression provides a more concise way to express a common operation that could otherwise be performed with a `for` expression.
+
+###### Note: 
+###### Splat expressions can be only used for List, Set and Tuples. Map datatype doesn't support splat expressions, instead you should use for expression.
+
+- Splat expressions have a special behavior when you apply them to a value that isn't a list, set, or tuple.
+- If the value is anything other than a null value then the splat expression will transform it into a single-element list, or more accurately a single-element tuple value. If the value is null then the splat expression will return an empty tuple.
+
+##### Splat Example: 
+- A list of objects stored in the variable `productList`, the productList object contains attributes such as id, name etc. To loop through this product in terraform we can use `for` loop or to select all of them in the for loop we can use `*` splat expression.
+`[for o in productList: o.id]` [or using splat expression] `productList[*].id`.
+- The symbol `[*]` would iterate the given list in the left and access the attribute on the right for each object in the list. Using this notation we can access complex object structure with nested objects as well. `productList[*].address[0].shippingAddress`
+
+## Data Types and Values
+Terraform supports the following data types for its values
+- `string` - sequence of unicode characters. eg: "Hello World".
+- `number` - Numeric value being both `whole number and/or fractional values`. eg: 20, 5.5432.
+- `bool` - a boolean value, either true or false.
+- `list (or) tuple` - a sequence of values. Remember list is `mutable` and tuple is `unmutable`. eg: ["name1", "name2"]. Index of a list starts from zero (0).
+- `set` - a set is also like list, a collection unique of values, which `doesn't allow duplicate values`. Set is an unordered list.
+- `map (or) object` - Group of values identified by named lables. eg: {name="person1", age=25}.
