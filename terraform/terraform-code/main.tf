@@ -1,10 +1,10 @@
 resource "random_id" "random_decimal_id" {
   byte_length = 2
-  count       = 2
+  count       = var.repo_count
 }
 
 resource "github_repository" "repo" {
-  count       = 2
+  count       = var.repo_count
   name        = "terraform-repo-${random_id.random_decimal_id[count.index].dec}"
   description = "My Terraform-managed GitHub repository"
   visibility  = "private"
@@ -12,7 +12,7 @@ resource "github_repository" "repo" {
 }
 
 resource "github_repository_file" "readme" {
-  count               = 2
+  count               = var.repo_count
   repository          = github_repository.repo[count.index].name
   file                = "README.md"
   content             = "# Terraform Repository\nThis repository is managed by Terraform."
@@ -33,4 +33,17 @@ resource "github_repository_file" "index_html" {
 output "repo-names" {
   value       = github_repository.repo[*].name
   description = "Repository names created by Terraform"
+  sensitive   = false
 }
+
+output "repo-clone-urls" {
+  value       = { for i in github_repository.repo : i.name => i.http_clone_url }
+  description = "Repository clone URLs created by Terraform"
+  sensitive   = false
+}
+# Output the variable source
+# output "var-source" {
+#   value       = var.varsource
+#   description = "Source used to define variables"
+#   sensitive   = false
+# }
