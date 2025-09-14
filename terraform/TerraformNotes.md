@@ -124,8 +124,7 @@ Hashicorp has a provider to generate random bytes, id, int, password, pet name, 
 Documentation: `https://developer.hashicorp.com/terraform/language/expressions/splat`
 A splat expression provides a more concise way to express a common operation that could otherwise be performed with a `for` expression.
 
-###### Note: 
-###### Splat expressions can be only used for List, Set and Tuples. Map datatype doesn't support splat expressions, instead you should use for expression.
+**Note:** Splat expressions can be only used for List, Set and Tuples. Map datatype doesn't support splat expressions, instead you should use for expression.
 
 - Splat expressions have a special behavior when you apply them to a value that isn't a list, set, or tuple.
 - If the value is anything other than a null value then the splat expression will transform it into a single-element list, or more accurately a single-element tuple value. If the value is null then the splat expression will return an empty tuple.
@@ -135,11 +134,26 @@ A splat expression provides a more concise way to express a common operation tha
 `[for o in productList: o.id]` [or using splat expression] `productList[*].id`.
 - The symbol `[*]` would iterate the given list in the left and access the attribute on the right for each object in the list. Using this notation we can access complex object structure with nested objects as well. `productList[*].address[0].shippingAddress`
 
+#### For Expressions:
+- For Loop can be `[for i in github_repository.repo[*] : "${i.name} : ${i.http_clone_url}" ]`, in this expression `[*]` a splat expression is used, which basically a for lopp inside a for loop.
+- The above interpolation can be also done using `map`. The symbol for map expression is `=>`. However, the for expression must be defined in curly braces `{}` instead of square brackets `[]`.
+- Example: `[for i in github_repository.repo[*] : i.name => i.http_clone_url]` will give an `Error: Invalid for expression. Key expression is not valid when building a tuple.`. The above expression should be inside curly braces `{for i in github_repository.repo[*] : i.name => i.http_clone_url}`
+Output:
+```json
+{
+  "terraform-repo-32856" = "https://github.com/EaswaranG/terraform-repo-32856.git"
+  "terraform-repo-6547" = "https://github.com/EaswaranG/terraform-repo-6547.git"
+}
+```
+
 ## Data Types and Values
 Terraform supports the following data types for its values
 - `string` - sequence of unicode characters. eg: "Hello World".
 - `number` - Numeric value being both `whole number and/or fractional values`. eg: 20, 5.5432.
 - `bool` - a boolean value, either true or false.
 - `list (or) tuple` - a sequence of values. Remember list is `mutable` and tuple is `unmutable`. eg: ["name1", "name2"]. Index of a list starts from zero (0).
-- `set` - a set is also like list, a collection unique of values, which `doesn't allow duplicate values`. Set is an unordered list.
+- `set` - a set is also like list, a collection unique of values, which `doesn't allow duplicate values`. Set is an unordered list. We can use the `toSet` method to force setting to a set datatype. eg: `toset([1,1,2,2,3,4])` will return `toset([1,2,3,4,])`.
 - `map (or) object` - Group of values identified by named lables. eg: {name="person1", age=25}.
+
+Use the function `type` to check which datatype is your variable.
+**Example** `type(github_repository.repo[*].auto_init)` which returns `tuple([bool,bool,])`.
