@@ -88,8 +88,11 @@ Download Terraform and install.
 - `terraform show -json | jq`: Formats in JSON format and beautify the lines.
 - `Interpolation`: This is a String Concatenation in Terraform - To combine strings and variable values in Terraform, use the `${}` interpolation syntax. Example: `"terraform-repo-${random_id.random_decimal_id.dec}"`
 - `terraform console`: Use the Terraform console to interactively inspect variables, outputs, and resource attributes. To specify a state file, run `terraform console -state="../state/terraform.tfstate"`.
-- `count`: The `count` meta-argument lets you create multiple instances of a resource by specifying how many duplicates you want. Use `count.index` to reference the current index in the loop (starting from 0). This is useful for dynamically generating resource names or attributes, such as `"terraform-repo-${random_id.random_decimal_id[count.index].dec}"` or accessing a specific resource instance like `github_repository.repo[0].name`.
+- `count`: The `count` meta-argument lets you create multiple instances of a resource by specifying how many duplicates you want. Use `count.index` to reference the current index in the loop (starting from 0). This is useful for dynamically generating resource names or attributes, such as `"terraform-repo-${random_id.random_decimal_id[count.index].dec}"` or accessing a specific resource instance like `github_repository.repo[0].name`. Usage of count as per this example will break the terraform output scripts if any index are messed-up. Instead use `for_each` loop where ever feasible.
+**Meta Arguments** -> Learn more about `count`, `for_each` and `depends_on` from the documentation.
+`https://developer.hashicorp.com/terraform/language/meta-arguments`
 - `output`: Outputs are usually added at the end of terraform script to print and store the output of the terraform script. These are printed in the console and also stored in the state files. `terraform output -json repo-names`
+- `terraform plan -refresh-only`: Updates the state file with the latest information from the actual infrastructure, without proposing or applying any changes. If resources managed by Terraform are modified outside of Terraform, this command will detect those changes and update the state file accordingly. No resources are created, updated, or destroyed—only the state is refreshed to match the real environment.
 
 ### Setup local filesystem as default backend
 Create a backend.tf file and declare the path where the statefile to be stored.
@@ -118,6 +121,7 @@ Use these commands to manually access objects in the state file. You should not 
 - `terraform state`: Advance state management using their subcommands.
 - `terraform state list`: List resources in the state. 
 - `terraform state show <resource_name>`: This command shows the current state of that particular resource. The resource name is an argument to be passed, this is used along with the list command. We can also use grep along with this command to narrow down the list and show `terraform state list | grep github_repository`.
+- `terraform state rm`: This is used to manually remove from the terraform state file. This is an advanced state management and not advised to manually. `terraform state rm -dry-run 'github_repository.repo[0]'` this would remove github_repository.repo[0]. Use terraform plan -refresh-only to refresh the state file with the actual state of the resources.
 
 ## Hashicorp/Random Provider
 Hashicorp has a provider to generate random bytes, id, int, password, pet name, shuffle, string and UUID. This provider acts as a random id generator library which your terraform resources can use. Use byte_length field to declare your length of random id to be generated.
@@ -206,4 +210,37 @@ variable "image_id" {
     error_message = "The image_id value must be a valid AMI ID, starting with \"ami-\"."
   }
 }
+```
+### for_each Meta Arguments
+- The `for_each` meta-argument performs a similar function to count, but lets you reference different values for each instance you create. Use the count argument when you want to create nearly identical instances. Use `for_each` when some instance arguments must have distinct values that can't be directly derived from an Integer index. You cannot use both a `count` and `for_each` argument in the same resource or module block.
+Example:
+```json
+{ for k,v in toset(["prod", "dev", "prod"]) : k => "repo-${v}" }
+{
+  "dev" = "repo-dev"
+  "prod" = "repo-prod"
+}
+
+keys({ for k,v in toset(["prod", "dev", "prod"]) : k => "repo-${v}" })
+[
+  "dev",
+  "prod",
+]
+
+values({ for k,v in toset(["prod", "dev", "prod"]) : k => "repo-${v}" })
+[
+  "repo-dev",
+  "repo-prod",
+]
+```
+### Terraform Provisioner
+- Terraform doesn't know the state of that resource, it will just post a command without knowing the state or the output of the command.
+- There are two provisioners 
+   - local-exec
+   - remote-exec
+Eg:
+```json
+         provisioner "local-exec" {
+         command = "gh repo view ${self.name} --web"
+          }
 ```
