@@ -32,3 +32,71 @@
 
 
 ###### Create a Snapshot of the Instance’s Root Volume
+
+**Step 1:** Navigate to EC2 Dashboard -> Select Volumes in the left pane under Elastic Block Store -> Select the root volume which is attached to the EC2 instance -> Actions -> Create Snapshot
+
+![Volume Creation Dashboard](/aws/SAA-C03/assets/.labImages/ec2/volumesDashboard.png)
+
+![Snapshot Creation Wizard](/aws/SAA-C03/assets/.labImages/ec2/snapshotCreation.png)
+
+**Step 2:** In the create snapshot wizard, enter description and tags -> Click Create snapshot. This will create a snapshot of the EBS volume.
+
+![Snapshot Creation Dashboard](/aws/SAA-C03/assets/.labImages/ec2/snapshotCreated.png)
+*Note:* The snapshot will be created in the same AZ as the volume.
+
+------------
+
+###### Create a new volume from the snapshot
+
+**Step 1:** Navigate to EC2 Dashboard -> Select Snapshots in the left pane under Elastic Block Store -> Select the snapshot -> Actions -> Create volume from snapshot
+
+![Volume Creation Dashboard](/aws/SAA-C03/assets/.labImages/ec2/volumeCreationDashboard.png)
+
+**Step 2:** Select rhe volume type, size, IOPS, Throughput, most importantly the volume must be in the same AZ as the EC2 instance you want this volume to be attached later. Click create volume.
+*Note: You can optionally encrypt the volume using customer managed or amazon managed KMS Key.*
+
+![Volume From Snapshot](/aws/SAA-C03/assets/.labImages/ec2/volumeFromSnapshot.png)
+
+**Step 3:** Once the volume is created, it available to use. You have to attach the volume to a EC2 instance to use the newly created volume. EC2 -> Volumes -> select the available volume -> Actions -> Attach Volume. In the Attach volume wizard, select the EC2 instance from the list (in the same AZ) and select a device name in the list (you can not assign a random name). -> Click Attach Volume.
+
+![Volume Attachment](/aws/SAA-C03/assets/.labImages/ec2/volumeAttachWizard.png)
+
+**Step 4:** Navigate to EC2 instance and in storage tab look for the attached block devices and the device names. However, the newly attached device is available to use only after *mounting the volume*.
+
+![Mount Volume](/aws/SAA-C03/assets/.labImages/ec2/mountAVolume.png)
+
+*Note: To mount the volume you can use linux / windows mount commands, however remember to wipe the partition table, because this volume is created from a snapshot which the root volume was not empty and had partition tables.*
+
+------------
+
+###### Create an AMI using the snapshot
+
+**Step 1:** Amazon Machine Image (AMI) can be created in two ways. 
+    1) Creating Image from running EC2 Instance
+    2) Creating Image from a snapshot
+In this example we will be doing the snapshot method to create AMI.
+Navigate to EC2 -> Snapshots -> Select a snapshot -> Actions -> Create Image from Snapshot.
+
+![AMI Creation Dashboard](/aws/SAA-C03/assets/.labImages/ec2/AMICreationDashboard.png)
+
+**Step 2:** In the AMI Creation Wizard, enter the name, description, select OS Architecture, root dir, Boot Mode and optioanlly EBS Volume. -> Create Image.
+
+![AMI Creation Wizard](/aws/SAA-C03/assets/.labImages/ec2/AMICreationWizard.png)
+
+**Step 3:** Once the AMI is created this will be available to use as a base image to create new EC2 Instance.
+
+![AMI Creation Wizard](/aws/SAA-C03/assets/.labImages/ec2/AMICreated.png)
+
+**Step 4:** Create a new EC2 Instance, in the launch wizard AMI section -> Select My AMIs tab -> Owned by me -> Notice your AMI will pop up here. Use this image to create an EC2 instance.
+
+![EC2 Instance From AMI](/aws/SAA-C03/assets/.labImages/ec2/EC2UsingMyAMI.png)
+
+**Step 5:** SSH in to the newly created EC2 instance and verify if working. 
+
+![SSH into EC2 Instance](/aws/SAA-C03/assets/.labImages/ec2/SSHIntoEC2CreatedonAMI.png)
+
+**Step 6:** Optionally deregister the AMI if not planning to use. 
+
+![EC2 Instance From AMI](/aws/SAA-C03/assets/.labImages/ec2/deregisterAMI.png)
+
+------------
