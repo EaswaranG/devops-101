@@ -65,6 +65,22 @@ In AWS EC2 is a resizable virtual machine on AWS Cloud (IaaS).
 - `AMI` - Amazon Machine Image (The OS Image): Take a snapshot first then in `Actions` you can find `Create Image from Snapshot`.
 - `Ephemeral EC2 Instance Store`: Temporary high speed storage directly attached to the physical instance, but destroyed while EC2 instance stops. Non-Persistent data store with a high performance and low-cost.
 
+##### EFS - Elastic File System
+- This is a NFS drive (Network File System). Uses NFS Protocol, since its is NFS system this is Linux only native (not windows) drive.
+- Can create an EFS for `one zone` or `multi-az` (Regional Availability).
+- Can access a EFS Volume from `3 different AZ's` by using an `EFS Share`, unlike EBS, this is not AZ dependent.
+- This is an expensive file system with higher throughput than EBS.
+- For windows, workaround to use is to use a third-party NFS clients to access EFS from windows.
+- `EBS:` Pay for used storage.
+- `EFS:` Pay for *allocated storage*.
+- Storage class: 
+    - Standard
+    - Infrequent Access
+    - EFS Archive (Cheaper)
+- Can use with EC2, lambda, elastic beanstalk and integrate with IAM.
+- This drive mounts in network, so ENI is created in the back.
+- When you create an EC2, under storage (volumes) -> You can choose EFS Filesystem in Advanced options.
+
 ##### Notes
 - Use `Instance Type Finder` tool in EC2 to find which instance type to use for your workload.
 - AMI (`Amazon Machine Image`) - It is like a ISO image, which type of OS you want to install.
