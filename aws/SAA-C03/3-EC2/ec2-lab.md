@@ -7,6 +7,7 @@
 
 ###### Create and launch an EC2 Instance
 **Step 1:** Login to AWS Management Console and in the search box, navigate to EC2.
+
 **Step 2:** In the EC2 Dashboard, select "Instances". Note down which *region* you are creating this resource, since EC2 is a *Region Specific Resource*
 ![EC2 Instance Dashboard](/aws/SAA-C03/assets/.labImages/ec2/ec2InstanceDashboard.png)
 **Step 3:** In the launch wizard, fill in the details as indicated.
