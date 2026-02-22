@@ -1,7 +1,7 @@
 # Getting started with AWS Solutions Architect Associate - SAA-C03
 #### Author Easwaran Govindarajan
 
-## AWS ELB - Elastic Load Balancer
+## AWS Auto Scaling Group
 
 ##### How Auto Scaling Groups work?
 - By defining 
@@ -28,3 +28,10 @@
 - **Predictive Scaling Policy:** -> Uses Amazon's predictive analysis and ahead of the demand the scaling would happen. This requires past data to predict a behaviour.
 - **Scheduled Scaling Policy:** -> As name states, it is based on a scheduled time.
     
+
+Qns:
+Can you give me a usecase for an NLB.
+We have an NLB with Target Group as ALB and from ALB goes to ECS Fargate or an EC2.
+There is an Java Application running in that instance serving an API endpoint.
+
+Client is making a HTTP call for this REST endpoint. Althought it is a HTTP call, it uses TCP connection. what is the NLB balancing here because I have only one ALB as target which has 2 or more instances in ECS.
