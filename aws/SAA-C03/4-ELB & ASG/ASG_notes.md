@@ -27,11 +27,60 @@
     - Target Tracking Scaling (Automatic scaling to maintain a traget metric -> Eg: CPU 50% to be maintained)
 - **Predictive Scaling Policy:** -> Uses Amazon's predictive analysis and ahead of the demand the scaling would happen. This requires past data to predict a behaviour.
 - **Scheduled Scaling Policy:** -> As name states, it is based on a scheduled time.
+
+##### ALB Features:
+- `mTLS (Mutual TLS)` -> Two way authentication between client & server
+- `Automatic Target Weights` -> Weighted Random Load Balancing
+- `Layer 7 LB` -> LB both HTTP & HTTPs traffic
+- `Security Features` -> Paired with VPC, ELB, Internet/Non-Internet facing
+- `Outpost support` -> Managed H/W & on-prem (like Azure Stack Hub)
+- `Protocol support` -> HTTP1, HTTP/2 & gRPC
+- `TLS Offboarding` -> Encrypts client initiating SSL & TLS to LB
+- `Sticky Sessions` -> Enable at Target level group -> Routes same client to same service
+- `IPV6 Support` -> Redirection support, Fixed Response
+- `Request Tracing` -> Appends "X-Amzn-Trace-Id" header
+- `Websocket Support`
+- `SNI` -> Server Name Identification -> Client indicates the hostname
+- `Targets` -> EC2, IP Address, Lambda, ECS container (IP address type)
+- `Content based routing` -> Host based, Path based, HTTP header, HTTP method, query string param, source IP address, CIDR based routing
+- `Slow start mode` -> Avoids flooding new nodes
+- `User Auth & Target optimizer` -> additional tools
+- `Deregistration delay` -> Opposite to slow start, this is a graceful shutdown
+
+
+##### ALB Integrations
+- EC2
+- AWS ECS
+- Lambda
+- Cert Manager
+- WAF
+- Cloudwatch
+- Amazon Cognito
+- Global Accelerator
+
+##### Common ALB 5xx Errors:
+
+- `502 Bad Gateway:` Target sends invalid/closed response, wrong TG port/protocol, app crash, HTTP2/gRPC mismatch.
+    - `Fix:` Verify TG port/protocol, health check path, app logs, match HTTP/HTTPS/HTTP2, keep-alive
+- `503 Unavailable:` No healthy targets (bad health check, SG/NACL blocks, scale lag).
+    - `Fix:` Make targets healthy, open SG rules, correct health check, scale earlier, increase thresholds.
+- `504 Timeout:` Backend too slow or ALB idle timeout hit.
+    - `Fix:` Optimize backend, raise ALB idle timeout, add caching/async, tune the app/aproxy timeout.
+- `500/502:` Spikes after deploy -> Not enough draining.
+    - `Fix:` Increase deregistration delay, readiness/preStop, gradual rollout.
     
+##### Notes
+- ALB analyze HTTP headers to make routing decisions.
+- ALB routes the request to the available application endpoints (distributed). Best suited for microservices & containarized applications.
+- ALB can integrate with
+    - AWS WAF
+    - AWS Cognito
+    - Global Accelerator, CDN etc.
+- `Rules:` Determines how the LB routes requests to targets
+- `Listeners:` are the protocols and port, ALB supports HTTP:80 and HTTPS:443
+- When ALB Target is a ECS Task IP, this IP can change when task is updated/added/removed. ALB does not detect this change automatically/dynamically.
+- ECS running in AWS VPC update the target `On Task Start or replacement`, ECS calls `Register Targets` and `Deregister Targets` appropriately.
+- Flow Representation:
+    - `Client -> Route 53 -> AWS Cert Manager -> ALB -> WAF`
+    - `Client -> Route 53 -> AWS Cert Manager -> ASG -> EC2/ECS/Lambda -> AWS Cloudwatch/S3`
 
-Qns:
-Can you give me a usecase for an NLB.
-We have an NLB with Target Group as ALB and from ALB goes to ECS Fargate or an EC2.
-There is an Java Application running in that instance serving an API endpoint.
-
-Client is making a HTTP call for this REST endpoint. Althought it is a HTTP call, it uses TCP connection. what is the NLB balancing here because I have only one ALB as target which has 2 or more instances in ECS.

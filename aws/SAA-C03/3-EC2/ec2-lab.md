@@ -10,6 +10,7 @@
 
 **Step 2:** In the EC2 Dashboard, select "Instances". Note down which *region* you are creating this resource, since EC2 is a *Region Specific Resource*
 ![EC2 Instance Dashboard](/aws/SAA-C03/assets/.labImages/ec2/ec2InstanceDashboard.png)
+
 **Step 3:** In the launch wizard, fill in the details as indicated.
 ![EC2 Instance Launch Wizard](/aws/SAA-C03/assets/.labImages/ec2/ec2InstanceLaunchWizard.png)
 **Note:** We will cover about AMI, Volume and Security Groups later in the course. As of now remember AMI as the Operating System's base image which could be Linux, Windows, MacOs, or flavours of linux such as RHEL, Amazon Linux, Ubuntu etc. For the purpose of this course, use a smaller EC2 Instance Type like t2.micro or t3.micro (based on availability in that region)
