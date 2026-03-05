@@ -40,3 +40,10 @@
 - **Cross Zone Loadbalancing:** Optionally balances traffic evenly across instances in all AZs. If all AZs don't have equals instances, enabling crozz zone loadbalancing will make sure all instances throughout the region are balanced evenly despite the number of instances in each AZ.
 - *NLB* - This is a ultra low latency load balance works on Layer 4.
 - *Gateway LB* - Operates on Layer 3 (Network Layer) works as an single entry point load balancing (acts as an gateway to AWS cloud from other sources such as on-prem or another AWS cloud using Transit Gateway)
+
+##### AWS Elastic Beanstalk
+
+Elastic Beanstalk is a PaaS service, used to simplify and empower developers with quickly setup development, deployment, scaling without worrying about EC2, networking, security groups from development to deployment.
+
+- Worker Tier - Event Driven Architecture, docker container etc
+- Web Server Tier - Traditional App running in a web server

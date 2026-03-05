@@ -22,6 +22,10 @@
 - Read replica will create a `Snapshot` and restores in the other instance in the background.
 - `RDS Custom`: for Oracle and MS SQL Server provides more flexibility than standard RDS by allowing you to customize the DB Env to meet specific app needs by giving access to underlying system.
 
+##### Aurora VS RDS
+- `Amazon Aurora` is a high-performance, cloud-native relational database (MySQL/PostgreSQL) with `separated compute/storage`, offering up to 5x higher throughput, auto-scaling, and faster failover (<30s). 
+- `Amazon RDS` is a broader, traditional managed service supporting multiple engines (MySQL, PostgreSQL, Oracle, SQL Server) better suited for predictable workloads
+
 ##### Amazon Aurora
 - Aurora is a high-performance Relational DB which is Amazon properierty service compatible with MySQL and PostgreSQL.
 - It features 
