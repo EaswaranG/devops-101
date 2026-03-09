@@ -105,11 +105,11 @@ Lets open `failover.easwarang.space` in a browser and `invert the health check` 
 
 **Step 5:** **`Geolocation Routing Policy`** -> This policy routes user based on their geolocation. If request originate from India (or nearby India), the Route 53 routes to Mumbai server. If the request comes from North America, it routes to our Canada Central server.
 
-![Geolocation Routing](/aws/SAA-C03/assets/.labImages/Route53/Geolocation.png)
+![Geolocation Routing](/aws/SAA-C03/assets/.labImages/Route53/GeoLocationRouting.png)
 
 Lets open `geolocation.easwarang.space` in a browser and validate the traffic is routed to Canada-Central server and now use VPN to tunnel to differnt country (HongKong in our example) and refresh the page. Notice the traffic failover to the server in Mumbai region.
 
-![Geolocation Routing 2](/aws/SAA-C03/assets/.labImages/Route53/Geolocation2.png)
+![Geolocation Routing 2](/aws/SAA-C03/assets/.labImages/Route53/GeoLocationRouting2.png)
 
 -----------
 **NOTE: There are many more routing policies and record types available in Route53 as shown below to try out.**
