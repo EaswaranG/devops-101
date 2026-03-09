@@ -50,7 +50,7 @@
     - Integration with AWS SageMaker for ML-Specific operation.
 
 - `Aurora Clone` - Fast DB Cloning, independent DB.
-- `Amazon RDS Proxy` - Fully managed service that enhances performance, scalability and availability for RDS and Aurora DBs. Using this gives `connection pooling` to reuse the connections, automatic failover, performance.
+- `Amazon RDS Proxy` - Fully managed service that enhances performance, scalability and availability for RDS and Aurora DBs. Using this gives `connection pooling` to reuse the connections, `automatic failover`, performance.
 - `Elastic Cache` - Caching layer in DB which increases performance of the DB. It supports Redis. Memcache and Vallkey (AWS service).
 
 ##### Notes
