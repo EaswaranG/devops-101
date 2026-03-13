@@ -47,5 +47,9 @@ Monitoring and Logging:
 
 ![CDN Operational Troubleshooting](/aws/SAA-C03/assets/.labImages/CDN&Accelerator/CDNOperationalTroubleshoot.png)
 
+**Step 10:** To Cleanup after lab, make sure to cancel your plan before deleting the CDN, else it will error out.
+
+![CDN Cancel Plan](/aws/SAA-C03/assets/.labImages/CDN&Accelerator/CDNCancellation.png)
+
 This is the end of CDN Lab module, for enterprise level loads use a business plan instead of free plan to access much more features.
 --------
