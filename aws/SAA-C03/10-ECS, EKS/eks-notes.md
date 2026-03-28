@@ -8,3 +8,6 @@
 - `Eg:` Lambda (for compute), SQS (for messaging), API Gateway, Cognito, CloudWatch, DynamoDB, Kinesis, AWS Fargate (for compute), SNS, Step Functions, KMS, Quicksight, Aurora, Athena etc.
 - Provisioned Concurrency
 - `Lambda Snapshot` helps to reduce the init phase time by snapshotting the INIT phase (Create, download and start of the execution env)
+
+
+**Refer Detailed [Kubernetes Notes](/kubernetes/KubernetesNotes.md) here**
